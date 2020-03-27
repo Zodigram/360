@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>CSCI 360 Project Demo</title>
+    <title>Ben Demo</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="jquery.js"></script>
     <script src="variables.js"></script>
@@ -23,182 +23,34 @@
     <div class="panel-body" style="padding-top:0px;padding-bottom:0px;">
         <div class="row">
                 <div class="col-xs-12">
-                        <textarea  style="max-height:500px;overflow:scroll;font-size:20px;" class="form-control" rows="200" id="assemblyCode">setMax(int&, int&):
-
+    <textarea  style="max-height:500px;overflow:scroll;font-size:20px;" class="form-control" rows="25" id="assemblyCode">fun_1(int, int, int, int, int, int, int, int, int):
         push    rbp
         mov     rbp, rsp
-        mov     QWORD PTR [rbp-8], rdi
-        mov     QWORD PTR [rbp-16], rsi
-        mov     rax, QWORD PTR [rbp-16]
-        mov     eax, DWORD PTR [rax]
-        cmp     eax, -1
-        jne     .L2
-        mov     rax, QWORD PTR [rbp-8]
-        mov     edx, DWORD PTR [rax]
-        mov     rax, QWORD PTR [rbp-16]
-        mov     DWORD PTR [rax], edx
-        jmp     .L4
-.L2:
-        mov     rax, QWORD PTR [rbp-16]
-        mov     edx, DWORD PTR [rax]
-        mov     rax, QWORD PTR [rbp-8]
-        mov     eax, DWORD PTR [rax]
-        cmp     edx, eax
-        jge     .L4
-        mov     rax, QWORD PTR [rbp-8]
-        mov     edx, DWORD PTR [rax]
-        mov     rax, QWORD PTR [rbp-16]
-        mov     DWORD PTR [rax], edx
-.L4:
-        nop
+        mov     DWORD PTR [rbp-4], edi
+        mov     DWORD PTR [rbp-8], esi
+        mov     DWORD PTR [rbp-12], edx
+        mov     DWORD PTR [rbp-16], ecx
+        mov     DWORD PTR [rbp-20], r8d
+        mov     DWORD PTR [rbp-24], r9d
+        mov     eax, 70
         pop     rbp
         ret
-setMin(int&, int&):
-        push    rbp
-        mov     rbp, rsp
-        mov     QWORD PTR [rbp-8], rdi
-        mov     QWORD PTR [rbp-16], rsi
-        mov     rax, QWORD PTR [rbp-16]
-        mov     eax, DWORD PTR [rax]
-        cmp     eax, -1
-        jne     .L6
-        mov     rax, QWORD PTR [rbp-8]
-        mov     edx, DWORD PTR [rax]
-        mov     rax, QWORD PTR [rbp-16]
-        mov     DWORD PTR [rax], edx
-        jmp     .L8
-.L6:
-        mov     rax, QWORD PTR [rbp-16]
-        mov     edx, DWORD PTR [rax]
-        mov     rax, QWORD PTR [rbp-8]
-        mov     eax, DWORD PTR [rax]
-        cmp     edx, eax
-        jle     .L8
-        mov     rax, QWORD PTR [rbp-8]
-        mov     edx, DWORD PTR [rax]
-        mov     rax, QWORD PTR [rbp-16]
-        mov     DWORD PTR [rax], edx
-.L8:
-        nop
-        pop     rbp
-        ret
-.LC0:
-        .string "Enter one integer:"
-.LC1:
-        .string "Max: "
-.LC2:
-        .string " Min: "
-.LC3:
-        .string "TEN INTEGERS REACHED"
 main:
         push    rbp
         mov     rbp, rsp
-        push    rbx
-        sub     rsp, 56
-        mov     DWORD PTR [rbp-24], -1
-        mov     DWORD PTR [rbp-28], -1
-        mov     DWORD PTR [rbp-20], 0
-.L11:
-        cmp     DWORD PTR [rbp-20], 9
-        jg      .L10
-        lea     rax, [rbp-64]
-        mov     rdi, rax
-        call    std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::basic_string() [complete object constructor]
-        mov     esi, OFFSET FLAT:.LC0
-        mov     edi, OFFSET FLAT:_ZSt4cout
-        call    std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
-        lea     rax, [rbp-64]
-        mov     rsi, rax
-        mov     edi, OFFSET FLAT:_ZSt3cin
-        call    std::basic_istream<char, std::char_traits<char> >& std::operator>><char, std::char_traits<char>, std::allocator<char> >(std::basic_istream<char, std::char_traits<char> >&, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >&)
-        lea     rax, [rbp-64]
-        mov     rdi, rax
-        call    std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::c_str() const
-        mov     rdi, rax
-        call    atoi
-        mov     DWORD PTR [rbp-32], eax
-        lea     rdx, [rbp-28]
-        lea     rax, [rbp-32]
-        mov     rsi, rdx
-        mov     rdi, rax
-        call    setMax(int&, int&)
-        lea     rdx, [rbp-24]
-        lea     rax, [rbp-32]
-        mov     rsi, rdx
-        mov     rdi, rax
-        call    setMin(int&, int&)
-        mov     esi, OFFSET FLAT:.LC1
-        mov     edi, OFFSET FLAT:_ZSt4cout
-        call    std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
-        mov     rdx, rax
-        mov     eax, DWORD PTR [rbp-28]
-        mov     esi, eax
-        mov     rdi, rdx
-        call    std::basic_ostream<char, std::char_traits<char> >::operator<<(int)
-        mov     esi, OFFSET FLAT:.LC2
-        mov     rdi, rax
-        call    std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
-        mov     rdx, rax
-        mov     eax, DWORD PTR [rbp-24]
-        mov     esi, eax
-        mov     rdi, rdx
-        call    std::basic_ostream<char, std::char_traits<char> >::operator<<(int)
-        mov     esi, OFFSET FLAT:_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
-        mov     rdi, rax
-        call    std::basic_ostream<char, std::char_traits<char> >::operator<<(std::basic_ostream<char, std::char_traits<char> >& (*)(std::basic_ostream<char, std::char_traits<char> >&))
-        add     DWORD PTR [rbp-20], 1
-        lea     rax, [rbp-64]
-        mov     rdi, rax
-        call    std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::~basic_string() [complete object destructor]
-        jmp     .L11
-.L10:
-        mov     esi, OFFSET FLAT:.LC3
-        mov     edi, OFFSET FLAT:_ZSt4cout
-        call    std::basic_ostream<char, std::char_traits<char> >& std::operator<< <std::char_traits<char> >(std::basic_ostream<char, std::char_traits<char> >&, char const*)
-        mov     esi, OFFSET FLAT:_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_
-        mov     rdi, rax
-        call    std::basic_ostream<char, std::char_traits<char> >::operator<<(std::basic_ostream<char, std::char_traits<char> >& (*)(std::basic_ostream<char, std::char_traits<char> >&))
-        mov     eax, 0
-        jmp     .L15
-        mov     rbx, rax
-        lea     rax, [rbp-64]
-        mov     rdi, rax
-        call    std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >::~basic_string() [complete object destructor]
-        mov     rax, rbx
-        mov     rdi, rax
-        call    _Unwind_Resume
-.L15:
-        add     rsp, 56
-        pop     rbx
-        pop     rbp
-        ret
-__static_initialization_and_destruction_0(int, int):
-        push    rbp
-        mov     rbp, rsp
-        sub     rsp, 16
-        mov     DWORD PTR [rbp-4], edi
-        mov     DWORD PTR [rbp-8], esi
-        cmp     DWORD PTR [rbp-4], 1
-        jne     .L18
-        cmp     DWORD PTR [rbp-8], 65535
-        jne     .L18
-        mov     edi, OFFSET FLAT:_ZStL8__ioinit
-        call    std::ios_base::Init::Init() [complete object constructor]
-        mov     edx, OFFSET FLAT:__dso_handle
-        mov     esi, OFFSET FLAT:_ZStL8__ioinit
-        mov     edi, OFFSET FLAT:_ZNSt8ios_base4InitD1Ev
-        call    __cxa_atexit
-.L18:
-        nop
-        leave
-        ret
-_GLOBAL__sub_I_setMax(int&, int&):
-        push    rbp
-        mov     rbp, rsp
-        mov     esi, 65535
+        push    9
+        push    8
+        push    7
+        mov     r9d, 6
+        mov     r8d, 5
+        mov     ecx, 4
+        mov     edx, 3
+        mov     esi, 2
         mov     edi, 1
-        call    __static_initialization_and_destruction_0(int, int)
-        pop     rbp
+        call    fun_1(int, int, int, int, int, int, int, int, int)
+        add     rsp, 24
+        mov     eax, 0
+        leave
         ret</textarea>
                     <div style="max-height:500px;overflow:scroll;font-size:20px;" hidden id="address_code" >
                         <table class="table" >
@@ -320,9 +172,8 @@ _GLOBAL__sub_I_setMax(int&, int&):
             <table class="table" style="margin:0px;">
                 <thead>
                 <tr >
-                    <th width="33%" style="text-align:center;">&nbsp;&nbsp;Address</th>
-                    <th width="33%" style="text-align:center;">&nbsp;&nbsp;Content</th>
-                    <th width="33%" style="text-align:center;">&nbsp;&nbsp;Label</th>
+                    <th width="50%" style="text-align:center;">&nbsp;&nbsp;Address</th>
+                    <th width="50%" style="text-align:center;">&nbsp;&nbsp;Content</th>
                 </tr>
                 </thead>
             </table>
@@ -331,7 +182,51 @@ _GLOBAL__sub_I_setMax(int&, int&):
                 <tbody id="stack_table" style='text-align:center;'>
                 </tbody>
             </table>
+</div>
+//<div class="row">
+<div class="col-xs-12">
+<div class="panel panel-primary">
+<div class="panel-heading">Extremes Panel</div>
+<div class="panel-body">
+<div class="row" >
+<table class="table" style="margin:0px;">
+<thead>
+<tr >
+<th width="50%" style="text-align:center;">&nbsp;&nbsp;Min</th>
+<th width="50%" style="text-align:center;">&nbsp;&nbsp;Max</th>
+
+</tr>
+</thead>
+</table>
+<div style="height:350px;overflow-y:scroll;">
+<table class="table" style="margin:0px;font-size: 20px;">
+<tbody id="extremes_table" style='text-align:center;'>
+</tbody>
+</table>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="panel panel-primary">
+    <div class="panel-heading">Input Area</div>
+    <div class="panel-body" style="padding-top:5px;padding-bottom:5px;">
+        <div class="row">
+
+           <input id="Add_Number_List" placeholder="Enter a number bro">
+           <br>
+           <button onclick="num_list_add()",id = "button">Submit</button>
+
+            <table class="table" style="margin:0px;">
+                <thead>
+                <tr>
+                    <th>Min</th>
+                    <th>Max</th>
+                </tr>
+                </thead>
+                <tbody id="min_and_max_table" style="max-height:200px;overflow:scroll;font-size:20px;">
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
@@ -358,6 +253,8 @@ _GLOBAL__sub_I_setMax(int&, int&):
         <div>This web-tool is only for education purpose.</div>
     </div>
 </div>
+
+
 
 </body>
 </html>

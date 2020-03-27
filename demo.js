@@ -21,6 +21,13 @@ var get_current_code = function(){
     return ""
 }
 
+var get_input=function() {
+    for (var x=0;x<10;x++) {
+
+        update_extremes_table_value()
+        update_extremes_table_view()
+    }
+}
 
 /*
   The most important part!!!!
@@ -131,6 +138,16 @@ var initial_code_address = function(){
     }
 }
 
+var num_list_add = function(){
+    $("#Add_Number_List").html("");
+    var number_to_be_added = document.getElementById('Add_Number_List');
+    var lines = number_to_be_added.value//.split("\n");
+   // document.write(lines)
+    num_list.push(parseInt(lines))
+   // document.write(typeof num_list[0])
+    update_extremes_table_value(parseInt(lines))
+    update_extremes_table_view()
+}
 /*
   load assembly codes into memory, do the following:
   1.  initial the stack, the registers

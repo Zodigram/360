@@ -9,3 +9,5 @@ var registers = {
 var function_table = []
 var address_code_table = []
 var stack_table = []
+var num_list = []
+var extremes_table = {"max": -1,"min": -1}
