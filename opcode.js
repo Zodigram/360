@@ -119,6 +119,22 @@ var update_stack_table_view = function(){
     
 }
 
+var update_extremes_table_value = function(num){
+    if(num < extremes_table["max"]) {extremes_table["max"]=num
+}
+   // document.write( extremes_table["max"],num)}
+    
+    if(num>extremes_table["min"]) {extremes_table["min"]=num}
+}
+
+var update_extremes_table_view = function(){
+    $("#extremes_table").html("")
+    
+    $("#extremes_table").append("<tr><td width='33%'>" + extremes_table["max"] + "</td><td width='33%'>" + extremes_table["min"] + "</td><td width='33%' style='vertical-align: middle;'><font style='background:#df9857;font-size:15pt;'>" + "</font></td></tr>")
+
+    
+}
+
 var push_handler = function(current_code){
    opCode = "push"
    opRand = $.trim(current_code.substring(4, current_code.length))
@@ -275,5 +291,4 @@ var function_handler = function(current_code){   // call f1(int, int)
     return true;
 }
 
-
-
+var memorymove;
