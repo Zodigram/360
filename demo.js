@@ -12,6 +12,12 @@ var show_registers_64 = function(){
     }
 }
 
+var show_rflag = function(){
+    for(var x=0; x < rflag_names.length; x++){
+       $("#"+rflag_names[x]).html(rflag[rflag_names[x]])
+    }
+}
+
 var get_current_code = function(){
     for(var x = 0; x < address_code_table.length ; x++){
         if(address_code_table[x]["address"] ==  registers["rip"]){
@@ -21,6 +27,13 @@ var get_current_code = function(){
     return ""
 }
 
+var get_input=function() {
+    for (var x=0;x<10;x++) {
+
+        update_extremes_table_value()
+        update_extremes_table_view()
+    }
+}
 
 /*
   The most important part!!!!
@@ -59,12 +72,28 @@ var execute = function(){
         registers["rip"] -= 4;
     }else if(current_code.indexOf('call') == 0){
         function_handler(current_code);
+    }else if(current_code.indexOf('cmp')==0) {
+        cmp_handler(current_code);
+        registers["rip"] -= 4;
+    }else if(current_code.indexOf('je')==0) {
+        je_handler(current_code)
+    }else if(current_code.indexOf('jne')==0) {
+        jne_handler(current_code)
+    }else if(current_code.indexOf('jge')==0) {
+        jge_handler(current_code)
+    }else if(current_code.indexOf('jg')==0) {
+        jg_handler(current_code)
+    }else if(current_code.indexOf('jle')==0) {
+        jle_handler(current_code)
+    }else if(current_code.indexOf('jl')==0) {
+        jl_handler(current_code)
     }else{
         registers["rip"] -= 4;
     }
     highlightCurrentCode();
     update_stack_table_view();
     show_registers_64();
+    show_rflag();
     return true
 }
 
@@ -99,7 +128,8 @@ var initial_stack_table_and_registers = function(){
 */
 var initial_code_address = function(){
 	address_code_table = [];
-	function_table = [];
+    function_table = [];
+    label_table=[];
     $("#address_code_table").html("");
     var assemblyCode = document.getElementById('assemblyCode');
     var lines = assemblyCode.value.split("\n");
@@ -122,6 +152,27 @@ var initial_code_address = function(){
                 "address": text_start_address
             })
         }
+        if(lines[x].indexOf("SetMax") == 0){     // for other functions, push into function table
+            function_table.push({
+                "label": lines[x].substring(0, lines[x].length - 1),
+                "address": text_start_address
+            })
+        }
+        if(lines[x].indexOf("SetMin") == 0){     // for other functions, push into function table
+            function_table.push({
+                "label": lines[x].substring(0, lines[x].length - 1),
+                "address": text_start_address
+            })
+        }
+
+        if(lines[x].indexOf(".") == 0){   // for main function, set RIP register
+            label_table.push({
+                "label": lines[x].substring(0, lines[x].length),
+                "address": text_start_address
+            })
+        }
+
+
         $("#address_code_table").append("<tr id='code_" + text_start_address + "'><td>" + text_start_address + "</td><td>" + lines[x] + "</td></tr>");
         text_start_address -= 4;
     }
@@ -129,8 +180,39 @@ var initial_code_address = function(){
     for (var x = 0; x < function_table.length; x++) {
         $("#function_address_table").append("<tr><td>" + function_table[x]["label"] + "</td><td>" + function_table[x]["address"] + "</td></tr>")
     }
+
+    $("#label_address_table").html("");
+   // document.write()
+    for (var x = 0; x < label_table.length; x++) {
+        $("#label_address_table").append("<tr><td>" + label_table[x]["label"] + "</td><td>" + label_table[x]["address"] + "</td></tr>")
+    }
+    //document.write(registers["rip"])
 }
 
+var num_list_add = function(){
+    if (submission_count < 10) {//{document.write("Uo")}
+        $("#Add_Number_List").html("");
+        var number_to_be_added = document.getElementById('Add_Number_List');
+        var numbersplit = number_to_be_added.value//.split("\n");
+    // document.write(lines)
+        var usable_number=parseInt(numbersplit)
+       // num_list.push(usable_number)
+        //document.write(typeof usable_number)
+        update_extremes_table_value(usable_number)
+        update_extremes_table_view()
+        $("#Add_Number_List").html("")        
+        var key_board_index=2100-submission_count*4
+        var screen_index=548+submission_count*4
+        update_stack_table_value(544,extremes_table["max"],4)
+        update_stack_table_value(548,extremes_table["min"],4)
+        update_stack_table_value(key_board_index,usable_number,4)
+
+
+        update_stack_table_view()
+        submission_count++
+
+    }
+}
 /*
   load assembly codes into memory, do the following:
   1.  initial the stack, the registers
@@ -143,8 +225,10 @@ var load = function(){
     highlightCurrentCode();
     update_stack_table_view();
     show_registers_64();
+    show_rflag();
     $("#assemblyCode").hide();
     $("#address_code").show();
+    submission_count=0;
 }
 
 
