@@ -27,67 +27,72 @@
 SetMax(int&,int&):
     push rbp
     mov rbp,rsp
-    mov DWORD PTR [rbp-4],edi
-    mov DWORD PTR [rbp-8],esi
+    push edi
+    push esi
     cmp edi,esi
     jle .elseSetMax 
     mov eax,edi
-    mov DWORD PTR[548],eax
+    add rsp,16
     pop rbp
     ret
 .elseSetMax
     mov eax,esi
-    mov DWORD PTR[548],eax
+    add rsp,16
     pop rbp
     ret
 SetMin(int&,int&):
     push rbp
     mov rbp,rsp
-    mov DWORD PTR [rbp-4],edi
-    mov DWORD PTR [rbp-8],esi
+    push edi
+    push esi
     cmp edi,esi 
     jge .elseSetMin 
-    mov DWORD PTR[544],eax
-    mov eax,edi;
+    mov eax,edi
+    add rsp, 16
     pop rbp
     ret
 .elseSetMin
     mov eax,esi
-    mov DWORD PTR[544],eax
+    add rsp, 16
     pop rbp
     ret
 main:
     push rbp
     mov rbp,rsp
-    mov DWORD PTR[544],-1
-    mov DWORD PTR[548],-1
+    push -1
+    push -1
     push 0
-    push 500
-.Loop    
-    mov eax, DWORD PTR[rbp-8]
-    mov ebx, DWORD PTR[rbp-16]
+    push 2048
+.Loop
+    mov eax, DWORD PTR[rbp-24]
+    mov ebx, DWORD PTR[rbp-32]
+    cmp eax,0
+    jne .AfterFirst
+    mov ecx,DWORD PTR[2048]
+    mov DWORD PTR[2008],ecx
+    mov DWORD PTR[2004],ecx
+.AfterFirst
     add eax,eax 
     add eax,eax
-    add eax,ebx
-    mov edi,DWORD PTR[rbp-4]
-    mov esi,DWORD PTR[eax]
+    sub ebx,eax
+    mov edi,DWORD PTR[ebx]
+    mov esi,DWORD PTR[2008]
     call SetMax(int&,int&)
-    mov DWORD PTR[rbp-4],eax
-    mov edi,DWORD PTR[rbp-4]
-    mov esi,DWORD PTR[rbp-8]
+    mov DWORD PTR[2008],eax
+    mov edi,DWORD PTR[ebx]
+    mov esi,DWORD PTR[2004]
     call SetMin(int&,int&)
-    mov DWORD PTR[pbp-8],eax
-    mov eax,DWORD PTR[rbp-12]
+    mov DWORD PTR[2004],eax
+    mov eax,DWORD PTR[rbp-24]
     add eax,1
-    mov DWORD PTR[rbp-12],eax
-    cmp DWORD PTR[rbp-12],10
+    mov DWORD PTR[rbp-24],eax
+    cmp DWORD PTR[rbp-24],10
     jl .Loop
+    add rsp,32
     mov eax,0
     leave
     ret
-       
-
-    </textarea>
+  </textarea>
                     <div style="max-height:500px;overflow:scroll;font-size:20px;" hidden id="address_code" >
                         <table class="table" >
                                 <thead>

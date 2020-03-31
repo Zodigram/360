@@ -51,14 +51,16 @@ var get_address = function(opRand){
 	var regExp = /\[([^]+)\]/;
     var matches = regExp.exec(opRand);
     address = matches[0].substring(1, matches[0].length-1).replace(/\s/g, ''); // [rbp - 4]
-  //if (address="rbp-4") {document.write($.isNumeric(address))}
-    
-    if($.isNumeric(address)){return parseInt(address); }
+    //alert(address)
+   // if (address==rbx) {document.write("write")}    
+  if($.isNumeric(address)){return parseInt(address); }
     if(is_register_32(address)) {
         address=register32To64(address)
+      //  if (address==rbx) {document.write("write")}
         return registers[address]; }
     reg = address.substring(0, 3);  // rbp
     value = parseInt(address.substring(3, address.length))  // -4
+   //if (reg="rbp") {document.write("h")}
     return registers[reg] + value
 }
 
@@ -89,7 +91,7 @@ var update_stack_table_value = function(address, value, size){
     var existFlag = false;
 	for(var x=0; x < stack_table.length ; x++){
        if(stack_table[x]["address"] == address){
-           stack_table[x]["content"] = value;
+           stack_table[x]["content"] = parseInt(value);
            existFlag = true;
            break;
        }
@@ -98,22 +100,30 @@ var update_stack_table_value = function(address, value, size){
         while(stack_table.length > 0 && address < stack_table[stack_table.length - 1]["address"] - size){
             stack_table.push({
                 "address": stack_table[stack_table.length - 1]["address"] - size,
-                "content": 0,
+                "content": parseInt(0),
                 "label": ""
             })
         }
         stack_table.push({
             "address": address,
-            "content": value,
+            "content": parseInt(value),
             "label": ""
         })
     }
 }
 
+var stack_sort=function() {
+    stack_table.sort(function(a,b){
+        if(a["address"] > b["address"]) return 1;
+        if(a["address"] < b["address"]) return -1;
+        return 0;
+    });
+    stack_table.reverse();
+}
+
 var update_stack_table_view = function(){
-    stack_table.sort(function(a,b) {return b-a})
-    stack_table.reverse()
     $("#stack_table").html("")
+    stack_sort();
     for(var x=0; x < stack_table.length ; x++){
         stack_table[x]["label"] = "";
         if(stack_table[x]["address"] == registers["rbp"]){
@@ -127,17 +137,34 @@ var update_stack_table_view = function(){
     
 }
 
-var update_extremes_table_value = function(num){
-    if(num < extremes_table["max"]) {extremes_table["max"]=num
+var update_extremes_table_value = function(){
+    if (first_extreme==true) {
+        for(var x=0; x < stack_table.length ; x++){
+       
+                 if(stack_table[x]["address"] == 2004){
+
+                    var minny = stack_table[x]["content"];
+                    extremes_table["min"]=parseInt(minny)
+
+                }
+                else if(stack_table[x]["address"] == 2008){
+                    var maxxy = stack_table[x]["content"];
+                    extremes_table["max"]=parseInt(maxxy)
+
+                }
+         }
+    }
 }
     
-    if(num>extremes_table["min"]) {extremes_table["min"]=num}
-}
+
+
+
 
 var update_extremes_table_view = function(){
+    
     $("#extremes_table").html("")
     
-    $("#extremes_table").append("<tr><td width='33%'>" + extremes_table["max"] + "</td><td width='33%'>" + extremes_table["min"] + "</td><td width='33%' style='vertical-align: middle;'><font style='background:#df9857;font-size:15pt;'>" + "</font></td></tr>")
+    $("#extremes_table").append("<tr><td width='33%'>" + extremes_table["min"] + "</td><td width='33%'>" + extremes_table["max"] + "</td><td width='33%' style='vertical-align: middle;'><font style='background:#df9857;font-size:15pt;'>" + "</font></td></tr>")
 
     
 }
@@ -194,7 +221,7 @@ var mov_handler = function(current_code){
     if(is_register_64(opRand[0])){ // the destination is a register : mov eax, XXX
         if($.isNumeric(opRand[1])){  // the source is an immediate value : mov eax, 100
             registers[opRand[0]] = parseInt(opRand[1]);
-            document.write(oprand[0])
+           // document.write(oprand[0])
         }else if(is_memory_address(opRand[1])){     // the source is a memory address : mov eax, DWORD PTR [rbp-8]
             address = get_address(opRand[1]) // get address of DWORD PTR [rbp-8]
             //if (opRand[0]=="rsi") {document.write(address);} 
@@ -259,7 +286,8 @@ var add_handler = function(current_code){
     opRand = convert32To64(opRand);   // 32 bits register name to 64 bits register name
     if(is_register_64(opRand[0])){  // the destination is a register : add rsp, XXX
         if($.isNumeric(opRand[1])){  // the source is an immediate value : add rsp, 100
-             registers[opRand[0]]  = registers[opRand[0]]  + parseInt(opRand[1]);
+           // alert("huh") 
+            registers[opRand[0]]  = parseInt(registers[opRand[0]])  + parseInt(opRand[1]);
         }else if(is_register_64(opRand[1])){    // add eax, edx
             registers[opRand[0]]  = parseInt(registers[opRand[0]])  + parseInt(registers[opRand[1]])
         }else if(is_memory_address(opRand[1])){  // add eax, DWORD PTR [rbp-8]
@@ -420,11 +448,8 @@ var je_handler=function(current_code) {
          label_name = $.trim(current_code.substring(3, current_code.length));
          for (var x = 0; x < label_table.length; x++) {
           if(label_table[x]["label"] == label_name){
-              jump_address = label_table[x]["address"];
-              return_address = registers["rip"] - 4;
-              update_stack_table_value(registers["rsp"] - 8, return_address, 8)
-              registers["rsp"]  = registers["rsp"]  - 8;
-              registers["rip"] = jump_address;
+            jump_address = label_table[x]["address"];
+            registers["rip"] = jump_address;
           }
          }
          return true;
@@ -439,11 +464,8 @@ var je_handler=function(current_code) {
         label_name = $.trim(current_code.substring(3, current_code.length));
         for (var x = 0; x < label_table.length; x++) {
          if(label_table[x]["label"] == label_name){
-             jump_address = label_table[x]["address"];
-             return_address = registers["rip"] - 4;
-             update_stack_table_value(registers["rsp"] - 8, return_address, 8)
-             registers["rsp"]  = registers["rsp"]  - 8;
-             registers["rip"] = jump_address;
+            jump_address = label_table[x]["address"];
+            registers["rip"] = jump_address;
          }
         }
         return true;
@@ -454,14 +476,17 @@ var je_handler=function(current_code) {
 var jl_handler=function(current_code) {
     
     if (rflag["jl"] == true) {
-        label_name = $.trim(current_code.substring(3, current_code.length));
+
+        label_name = $.trim(current_code.substring(2, current_code.length));
         for (var x = 0; x < label_table.length; x++) {
+           // if(label_table[x]["label"] == label_name){
+
+          //  alert(label_table[x]["label"].length+" "+label_name.length)
+           // }
          if(label_table[x]["label"] == label_name){
-             jump_address = label_table[x]["address"];
-             return_address = registers["rip"] - 4;
-             update_stack_table_value(registers["rsp"] - 8, return_address, 8)
-             registers["rsp"]  = registers["rsp"]  - 8;
-             registers["rip"] = jump_address;
+         //   alert("Hereyo")
+            jump_address = label_table[x]["address"];
+            registers["rip"] = jump_address;
          }
         }
         return true;
@@ -475,11 +500,8 @@ var jl_handler=function(current_code) {
         label_name = $.trim(current_code.substring(3, current_code.length));
         for (var x = 0; x < label_table.length; x++) {
          if(label_table[x]["label"] == label_name){
-             jump_address = label_table[x]["address"];
-             return_address = registers["rip"] - 4;
-             update_stack_table_value(registers["rsp"] - 8, return_address, 8)
-             registers["rsp"]  = registers["rsp"]  - 8;
-             registers["rip"] = jump_address;
+            jump_address = label_table[x]["address"];
+            registers["rip"] = jump_address;
          }
         }
         return true;
@@ -496,11 +518,8 @@ var jle_handler=function(current_code) {
         label_name = $.trim(current_code.substring(3, current_code.length));
         for (var x = 0; x < label_table.length; x++) {
          if(label_table[x]["label"] == label_name){
-             jump_address = label_table[x]["address"];
-             return_address = registers["rip"] - 4;
-             update_stack_table_value(registers["rsp"] - 8, return_address, 8)
-             registers["rsp"]  = registers["rsp"]  - 8;
-             registers["rip"] = jump_address;
+            jump_address = label_table[x]["address"];
+            registers["rip"] = jump_address;
          }
         }
         return true;
@@ -518,9 +537,6 @@ var jge_handler=function(current_code) {
         for (var x = 0; x < function_table.length; x++) {
          if(label_table[x]["label"] == label_name){
              jump_address = label_table[x]["address"];
-             return_address = registers["rip"] - 4;
-             update_stack_table_value(registers["rsp"] - 8, return_address, 8)
-             registers["rsp"]  = registers["rsp"]  - 8;
              registers["rip"] = jump_address;
          }
         }

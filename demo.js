@@ -92,8 +92,9 @@ var execute = function(){
     }
     highlightCurrentCode();
     update_stack_table_view();
+    update_extremes_table_value();
+    update_extremes_table_view();
     show_registers_64();
-    show_rflag();
     return true
 }
 
@@ -105,7 +106,11 @@ var execute = function(){
   4.  The text section is started at 1000.
 */
 var initial_stack_table_and_registers = function(){
-	stack_table = [];
+    //stack_table = [];
+    
+    stack_table = [];
+    update_stack_table_value(2008,0,4)
+    update_stack_table_value(2004,0,4)
 	stack_start_address =  2000;
 	text_start_address = 1000;
 	registers = {
@@ -198,17 +203,28 @@ var num_list_add = function(){
         var usable_number=parseInt(numbersplit)
        // num_list.push(usable_number)
         //document.write(typeof usable_number)
-        update_extremes_table_value(usable_number)
-        update_extremes_table_view()
+        //update_extremes_table_value(usable_number)
+        //update_extremes_table_view()
         $("#Add_Number_List").html("")        
-        var key_board_index=2100-submission_count*4
-        var screen_index=548+submission_count*4
-        update_stack_table_value(544,extremes_table["max"],4)
-        update_stack_table_value(548,extremes_table["min"],4)
+        var key_board_index=2048-submission_count*4
+        // if (first_extreme==true) {
+        //     for(var x=0; x < stack_table.length ; x++){
+        //         if(stack_table[x]["address"] == 2004){
+        //             extremes_table["min"]=usable_number;
+        
+        //         }
+        //         else if(stack_table[x]["address"] == 2008){
+        //             var maxxy = stack_table[x]["content"];
+        //             if(maxxy>extremes_table["max"]) {extremes_table["max"]=maxxy}
+        
+        //         }
+        //      }
+        // }
+        //update_stack_table_value(2004,extremes_table["max"],4)
+        //update_stack_table_value(2008,extremes_table["min"],4)
         update_stack_table_value(key_board_index,usable_number,4)
-
-
         update_stack_table_view()
+        first_extreme=true
         submission_count++
 
     }
@@ -225,7 +241,8 @@ var load = function(){
     highlightCurrentCode();
     update_stack_table_view();
     show_registers_64();
-    show_rflag();
+    update_extremes_table_value();
+    update_extremes_table_view();
     $("#assemblyCode").hide();
     $("#address_code").show();
     submission_count=0;
