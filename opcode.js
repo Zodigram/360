@@ -137,6 +137,51 @@ var update_stack_table_view = function(){
     
 }
 
+var update_big_mem_table_value = function(){
+    big_mem_table= [];
+
+        for(var x=0; x < stack_table.length ; x++){
+                big_mem_table.push({
+                "address": stack_table[x]["address"],
+                "content": stack_table[x]["content"]
+            })
+        }
+
+        while (big_mem_table[big_mem_table.length-1]["address"]>(address_code_table[0]["address"]+4)) {
+            big_mem_table.push({
+                "address": big_mem_table[big_mem_table.length-1]["address"]-4,
+                "content": 0
+                })
+        }
+      //  alert(address_code_table[0]["address"])
+        for(var x=0; x < address_code_table.length ; x++){
+            big_mem_table.push({
+            "address": address_code_table[x]["address"],
+            "content": address_code_table[x]["code"]
+            })
+        }
+
+}
+
+
+var update_big_mem_table_view = function(){
+    $("#memory_table").html("")
+  //  big_mem_table_sort();
+    for(var x=0; x < big_mem_table.length ; x++){
+       // address__code_table[x]["label"] = "";
+        // if(address_code_table[x]["address"] == registers["rbp"]){
+        //     address_code_table[x]["label"] += "rbp";
+        // }
+        // if(address__code_table[x]["address"] == registers["rsp"]){
+        //     address_code_table[x]["label"] += " rsp";
+        // }
+        $("#memory_table").append("<tr><td width='33%'>" + big_mem_table[x]["address"] + "</td><td width='33%'>" + big_mem_table[x]["content"])// + "</td><td width='33%' style='vertical-align: middle;'><font style='background:#df9857;font-size:15pt;'>" + address_code_table[x]["label"] + "</font></td></tr>")
+
+    //    $("#memory_table").append("<tr><td width='33%'>" + address_code_table[x]["address"] + "</td><td width='33%'>" + address_code_table[x]["content"] + "</td><td width='33%' style='vertical-align: middle;'><font style='background:#df9857;font-size:15pt;'>" + address_code_table[x]["label"] + "</font></td></tr>")
+    }
+    
+}
+
 var update_extremes_table_value = function(){
     if (first_extreme==true) {
         for(var x=0; x < stack_table.length ; x++){

@@ -8,6 +8,7 @@ var registers = {
 }
 var function_table = []
 var label_table=[]
+var big_mem_table = []
 var address_code_table = []
 var stack_table = {"2008":0,"2004":0}
 var extremes_table = {"max": 0,"min":0}

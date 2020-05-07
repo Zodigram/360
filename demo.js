@@ -95,6 +95,8 @@ var execute = function(){
     update_extremes_table_value();
     update_extremes_table_view();
     show_registers_64();
+    update_big_mem_table_value();
+    update_big_mem_table_view();
     return true
 }
 
@@ -243,6 +245,8 @@ var load = function(){
     show_registers_64();
     update_extremes_table_value();
     update_extremes_table_view();
+    update_big_mem_table_value();
+    update_big_mem_table_view();
     $("#assemblyCode").hide();
     $("#address_code").show();
     submission_count=0;
