@@ -111,7 +111,7 @@ var initial_stack_table_and_registers = function(){
     //stack_table = [];
     
     stack_table = []
-    for(var x = 2052 ; x > 2000 ; x=x-4){
+    for(var x = 2088 ; x > 2000 ; x=x-4){
         update_stack_table_value(x,0,4)
     }
     // update_stack_table_value(2008,0,4)
@@ -229,12 +229,16 @@ var num_list_add = function(){
         //update_stack_table_value(2004,extremes_table["max"],4)
         //update_stack_table_value(2008,extremes_table["min"],4)
         update_stack_table_value(key_board_index,usable_number,4)
-        update_stack_table_value(2052,1,4)
+        update_stack_table_value(ready_bit_placement,1,4)
         update_stack_table_view()
         first_extreme=true
         submission_count++
+        ready_bit_placement=ready_bit_placement-4;
+        update_big_mem_table_value();
+        update_big_mem_table_view();
 
     }
+
 }
 /*
   load assembly codes into memory, do the following:
@@ -243,6 +247,7 @@ var num_list_add = function(){
   3.  set the RIP register to "main" function
 */
 var load = function(){
+    ready_bit_placement=2088;
     initial_stack_table_and_registers();
     initial_code_address();
     highlightCurrentCode();

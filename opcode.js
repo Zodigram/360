@@ -132,7 +132,9 @@ var update_stack_table_view = function(){
         if(stack_table[x]["address"] == registers["rsp"]){
             stack_table[x]["label"] += " rsp";
         }
+        if(stack_table[x]["address"]<=2000) {
         $("#stack_table").append("<tr><td width='33%'>" + stack_table[x]["address"] + "</td><td width='33%'>" + stack_table[x]["content"] + "</td><td width='33%' style='vertical-align: middle;'><font style='background:#df9857;font-size:15pt;'>" + stack_table[x]["label"] + "</font></td></tr>")
+        }
     }
     
 }

@@ -16,5 +16,5 @@ var first_extreme=false
 var submission_count=0;
 var rflag_names=["jl","jg","je","jne"]
 var rflag = {"jle": false,"jge": false,"jl": false,"jg": false,"je": false,"jne": false}
-
+var ready_bit_placement=2088
 //   // mov eax,DWORD PTR[ebx+4*eax]
