@@ -63,6 +63,10 @@ main:
     push -1
     push 0
     push 2048
+.PreLoopForFirst
+    mov edx,DWORD PTR[2052]
+    cmp edx,0
+    je .PreLoopForFirst
 .Loop
     mov eax, DWORD PTR[rbp-24]
     mov ebx, DWORD PTR[rbp-32]
@@ -71,7 +75,14 @@ main:
     mov ecx,DWORD PTR[2048]
     mov DWORD PTR[2008],ecx
     mov DWORD PTR[2004],ecx
+    add eax,1
+    mov DWORD PTR[rbp-24],eax
+    mov DWORD PTR[2052],0
+    jmp .Loop
 .AfterFirst
+    mov edx,DWORD PTR[2052]
+    cmp edx,0
+    je .AfterFirst
     add eax,eax 
     add eax,eax
     sub ebx,eax
@@ -85,6 +96,7 @@ main:
     mov DWORD PTR[2004],eax
     mov eax,DWORD PTR[rbp-24]
     add eax,1
+    mov DWORD PTR[2052],0
     mov DWORD PTR[rbp-24],eax
     cmp DWORD PTR[rbp-24],10
     jl .Loop

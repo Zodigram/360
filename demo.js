@@ -110,9 +110,13 @@ var execute = function(){
 var initial_stack_table_and_registers = function(){
     //stack_table = [];
     
-    stack_table = [];
-    update_stack_table_value(2008,0,4)
-    update_stack_table_value(2004,0,4)
+    stack_table = []
+    for(var x = 2052 ; x > 2000 ; x=x-4){
+        update_stack_table_value(x,0,4)
+    }
+    // update_stack_table_value(2008,0,4)
+    // update_stack_table_value(2004,0,4)
+    // update_stack_table_value(2052,0,4)
 	stack_start_address =  2000;
 	text_start_address = 1000;
 	registers = {
@@ -225,6 +229,7 @@ var num_list_add = function(){
         //update_stack_table_value(2004,extremes_table["max"],4)
         //update_stack_table_value(2008,extremes_table["min"],4)
         update_stack_table_value(key_board_index,usable_number,4)
+        update_stack_table_value(2052,1,4)
         update_stack_table_view()
         first_extreme=true
         submission_count++
