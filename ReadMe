@@ -15,6 +15,11 @@ Extra Points (each gets 5% * project weight)
 •Support and implement global or static variable.
 •Support flexible execution mode: step by step, one-click run. See https://github.com/Schweigi/assembler-simulator.
 
+Group #2:
+Hunter Zhao
+Marlon Lopez
+Benjamin Pulatov
+Mathew Estrella
 
 Step 1: Create machine code
 Step 2: Create functions in JS for each x86 instruction not already defined
