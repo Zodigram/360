@@ -1,3 +1,4 @@
+CSCI 360 Project: A Software Emulator for Computer Architecture (memory hierarchy) and Arithmetic Logic Unit (ALU).
 
 Test Program Setup
 Ask user to continuously input random integers until the number of entered reaches 10. Each time the user enters a new integer, the current maximum and minimum integers in the saved list are output to the screen. You can simply assume that all integers are non-negative. You can also assume that all integers are small values and can be represented by 1 byte .
@@ -20,6 +21,7 @@ Hunter Zhao
 Marlon Lopez
 Benjamin Pulatov
 Mathew Estrella
+
 
 Step 1: Create machine code
 Step 2: Create functions in JS for each x86 instruction not already defined
