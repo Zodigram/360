@@ -189,7 +189,7 @@ main:
    function, assumed <font color="red">3000</font>.
 1. The function label does not take any action.
 2. leave = mov rsp, rbp
-	       pop rpb
+         pop rpb
 3. ret   = pop rip
 </pre>
             </div>
@@ -198,7 +198,7 @@ main:
 </div>
 
 
-			
+      
 <div class="panel panel-primary">
     <div class="panel-heading">Source Code Text</div>
     <div class="panel-body">
@@ -244,7 +244,7 @@ return 0;
 </div>
 
 
-	
+  
                 </div>
                 <div class="col-sm-6" style="padding:5px;">
                     <div class="row" >
@@ -299,7 +299,7 @@ return 0;
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <div class="panel panel-primary">
+<div class="panel panel-primary">
     <div class="panel-heading">Stack Panel</div>
     <div class="panel-body">
         <div class="row" >
@@ -318,31 +318,32 @@ return 0;
                 <tbody id="stack_table" style='text-align:center;'>
                 </tbody>
             </table>
-</div>
-<div class="row">
-<div class="col-xs-12">
-<div class="panel panel-primary">
-<div class="panel-heading">Extremes Panel</div>
-<div class="panel-body">
-<div class="row" >
-<table class="table" style="margin:0px;">
-<thead>
-<tr >
-<th width="33%" style="text-align:center;">&nbsp;&nbsp;Min</th>
-<th width="33%" style="text-align:center;">&nbsp;&nbsp;Max</th>
-
-</tr>
-</thead>
-</table>
-<div style="height:350px;overflow-y:scroll;">
-<table class="table" style="margin:0px;font-size: 20px;">
-<tbody id="extremes_table" style='text-align:center;'>
-</tbody>
-</table>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Extremes Panel</div>
+            <div class="panel-body">
+                <div class="row" >
+                    <table class="table" style="margin:0px;">
+                        <thead>
+                            <tr>
+                                <th width="33%" style="text-align:center;">&nbsp;&nbsp;Min</th>
+                                <th width="33%" style="text-align:center;">&nbsp;&nbsp;Max</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                            <tbody id="extremes_table" style='text-align:center;'></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
 
 <div class="panel panel-primary">
     <div class="panel-heading">Input Area</div>
@@ -353,6 +354,7 @@ return 0;
            <br>
            <button onclick="num_list_add()",id = "button">Submit</button>
 
+<!--
             <table class="table" style="margin:0px;">
                 <thead>
                 <tr>
@@ -363,6 +365,8 @@ return 0;
                 <tbody id="min_and_max_table" style="max-height:200px;overflow:scroll;font-size:20px;">
                 </tbody>
             </table>
+-->
+
         </div>
     </div>
 </div>
