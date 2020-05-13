@@ -349,25 +349,11 @@ return 0;
     <div class="panel-heading">Input Area</div>
     <div class="panel-body" style="padding-top:5px;padding-bottom:5px;">
         <div class="row">
-
-           <input id="Add_Number_List" placeholder="Please Enter a Number">
-           <br>
-           <button onclick="num_list_add()",id = "button">Submit</button>
-
-<!--
-            <table class="table" style="margin:0px;">
-                <thead>
-                <tr>
-                    <th>Min</th>
-                    <th>Max</th>
-                </tr>
-                </thead>
-                <tbody id="min_and_max_table" style="max-height:200px;overflow:scroll;font-size:20px;">
-                </tbody>
-            </table>
--->
-
-        </div>
+            <div class="col-xs-12">
+                <input id="Add_Number_List" placeholder="Please Enter a Number">
+                <button onclick="num_list_add()",id = "button">Submit</button>
+            </div>
+         </div>
     </div>
 </div>
 </div>
@@ -378,31 +364,36 @@ return 0;
 <div class="row">
     <div class="col-xs-12">
         <div class="panel panel-primary">
-<div class="panel-heading">Memory Table</div>
-<div class="panel-body">
-<div class="row" >
-<table class="table" style="margin:0px;">
-<thead>
-<tr >
-<th width="33%" style="text-align:center;">&nbsp;&nbsp;Address</th>
-<th width="33%" style="text-align:center;">&nbsp;&nbsp;Content</th>
-<th width="33%" style="text-align:center;">&nbsp;&nbsp;Label</th>
-
-</tr>
-</thead>
-</table>
-<div style="height:350px;overflow-y:scroll;">
-<table class="table" style="margin:0px;font-size: 20px;">
-<tbody id="memory_table" style='text-align:center;'>
-</tbody>
-</table>
+			<div class="panel-heading">Memory Table</div>
+			<div class="panel-body">
+				<div class="row" >
+					<table class="table" style="margin:0px;">
+						<thead>
+							<tr >
+								<th width="33%" style="text-align:center;">&nbsp;&nbsp;Address</th>
+								<th width="33%" style="text-align:center;">&nbsp;&nbsp;Content</th>
+							</tr>
+						</thead>
+					</table>
+						<div style="height:350px;overflow-y:scroll;">
+							<table class="table" style="margin:0px;font-size: 20px;">
+								<tbody id="memory_table" style='text-align:center;'></tbody>
+							</table>
+						</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
+</div>
+</div>
+</div>
+</div>
 
-    <div class="row" style="text-align:center;">
-        <div>@ Xiaojie Zhang</div>
-        <div>This web-tool is only for education purpose.</div>
-    </div>
+<div class="row" style="text-align:center;">
+	<div>@ Xiaojie Zhang</div>
+	<div>This web-tool is only for education purpose.</div>
 </div>
 
 
