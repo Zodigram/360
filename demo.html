@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Ben Demo</title>
+    <title>CSCI 360 Project</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="jquery.js"></script>
     <script src="variables.js"></script>
@@ -178,9 +178,6 @@ main:
 
 
 
-
-
-
 <div class="panel panel-primary">
     <div class="panel-heading">Tips</div>
     <div class="panel-body">
@@ -199,6 +196,55 @@ main:
         </div>
     </div>
 </div>
+
+
+			
+<div class="panel panel-primary">
+    <div class="panel-heading">Source Code Text</div>
+    <div class="panel-body">
+        <div class="row" >
+            <div class="col-xs-12">
+                <pre>
+#include &ltiostream>
+#include &ltfstream>
+
+void setMax(int &num, int& max) {
+    if (max==-1) max=num;
+    else if (max&ltnum) max=num;
+}
+
+void setMin(int &num, int& min) {
+    if (min==-1) min=num;
+    else if (min>num) min=num; 
+}
+
+int main() {
+    int min=-1;
+    int max=-1;
+    int count=0;
+    while (count<10) {
+        int num;
+        std::string numstring;
+        std::cout << "Enter one integer:";
+        std::cin >> numstring;
+        num=std::atoi(numstring.c_str());
+        setMax(num,max);
+        setMin(num,min);
+        std::cout << "Max: " << max << " Min: " << min << std::endl;
+        count++;
+   
+    }
+    std::cout << "TEN INTEGERS REACHED" << std::endl;
+return 0;
+}
+                </pre>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+	
                 </div>
                 <div class="col-sm-6" style="padding:5px;">
                     <div class="row" >
@@ -246,8 +292,6 @@ main:
         </div>
     </div>
 </div>
-      
-
 
 
 
