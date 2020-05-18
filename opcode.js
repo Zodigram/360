@@ -50,17 +50,13 @@ var is_function = function(value){
 var get_address = function(opRand){
 	var regExp = /\[([^]+)\]/;
     var matches = regExp.exec(opRand);
-    address = matches[0].substring(1, matches[0].length-1).replace(/\s/g, ''); // [rbp - 4]
-    //alert(address)
-   // if (address==rbx) {document.write("write")}    
+    address = matches[0].substring(1, matches[0].length-1).replace(/\s/g, ''); // [rbp - 4] 
   if($.isNumeric(address)){return parseInt(address); }
     if(is_register_32(address)) {
         address=register32To64(address)
-      //  if (address==rbx) {document.write("write")}
         return registers[address]; }
     reg = address.substring(0, 3);  // rbp
     value = parseInt(address.substring(3, address.length))  // -4
-   //if (reg="rbp") {document.write("h")}
     return registers[reg] + value
 }
 
@@ -139,6 +135,7 @@ var update_stack_table_view = function(){
     
 }
 
+//kinda inefficient funciton that just mashes the stack and address code tables together every step
 var update_big_mem_table_value = function(){
     big_mem_table= [];
 
@@ -155,7 +152,6 @@ var update_big_mem_table_value = function(){
                 "content": 0
                 })
         }
-      //  alert(address_code_table[0]["address"])
         for(var x=0; x < address_code_table.length ; x++){
             big_mem_table.push({
             "address": address_code_table[x]["address"],
@@ -165,25 +161,18 @@ var update_big_mem_table_value = function(){
 
 }
 
-
+//update memory table
 var update_big_mem_table_view = function(){
     $("#memory_table").html("")
-  //  big_mem_table_sort();
     for(var x=0; x < big_mem_table.length ; x++){
-       // address__code_table[x]["label"] = "";
-        // if(address_code_table[x]["address"] == registers["rbp"]){
-        //     address_code_table[x]["label"] += "rbp";
-        // }
-        // if(address__code_table[x]["address"] == registers["rsp"]){
-        //     address_code_table[x]["label"] += " rsp";
-        // }
+       
         $("#memory_table").append("<tr><td width='33%'>" + big_mem_table[x]["address"] + "</td><td width='33%'>" + big_mem_table[x]["content"])// + "</td><td width='33%' style='vertical-align: middle;'><font style='background:#df9857;font-size:15pt;'>" + address_code_table[x]["label"] + "</font></td></tr>")
 
-    //    $("#memory_table").append("<tr><td width='33%'>" + address_code_table[x]["address"] + "</td><td width='33%'>" + address_code_table[x]["content"] + "</td><td width='33%' style='vertical-align: middle;'><font style='background:#df9857;font-size:15pt;'>" + address_code_table[x]["label"] + "</font></td></tr>")
     }
     
 }
 
+//keep track of current extremes
 var update_extremes_table_value = function(){
     if (first_extreme==true) {
         for(var x=0; x < stack_table.length ; x++){
@@ -206,7 +195,7 @@ var update_extremes_table_value = function(){
 
 
 
-
+//update min and max on extremes table
 var update_extremes_table_view = function(){
     
     $("#extremes_table").html("")
@@ -380,6 +369,7 @@ var function_handler = function(current_code){   // call f1(int, int)
 }
 
 
+//handle comparisons
 var cmp_handler=function(current_code) {
     current_code = $.trim(current_code.substring(3, current_code.length));
     var opRand = current_code.split(",");
@@ -592,6 +582,3 @@ var jge_handler=function(current_code) {
    else {registers["rip"] -= 4}
 
  }
-//it gets to syscall
-//ALERT: Enter number
-//

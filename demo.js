@@ -12,12 +12,6 @@ var show_registers_64 = function(){
     }
 }
 
-var show_rflag = function(){
-    for(var x=0; x < rflag_names.length; x++){
-       $("#"+rflag_names[x]).html(rflag[rflag_names[x]])
-    }
-}
-
 var get_current_code = function(){
     for(var x = 0; x < address_code_table.length ; x++){
         if(address_code_table[x]["address"] ==  registers["rip"]){
@@ -114,9 +108,7 @@ var initial_stack_table_and_registers = function(){
     for(var x = 2088 ; x > 2000 ; x=x-4){
         update_stack_table_value(x,0,4)
     }
-    // update_stack_table_value(2008,0,4)
-    // update_stack_table_value(2004,0,4)
-    // update_stack_table_value(2052,0,4)
+
 	stack_start_address =  2000;
 	text_start_address = 1000;
 	registers = {
@@ -193,11 +185,9 @@ var initial_code_address = function(){
     }
 
     $("#label_address_table").html("");
-   // document.write()
     for (var x = 0; x < label_table.length; x++) {
         $("#label_address_table").append("<tr><td>" + label_table[x]["label"] + "</td><td>" + label_table[x]["address"] + "</td></tr>")
     }
-    //document.write(registers["rip"])
 }
 
 var num_list_add = function(){
@@ -205,29 +195,13 @@ var num_list_add = function(){
         $("#Add_Number_List").html("");
         var number_to_be_added = document.getElementById('Add_Number_List');
         var numbersplit = number_to_be_added.value//.split("\n");
-    // document.write(lines)
         var usable_number=parseInt(numbersplit)
-       // num_list.push(usable_number)
-        //document.write(typeof usable_number)
-        //update_extremes_table_value(usable_number)
-        //update_extremes_table_view()
+       
+        
         $("#Add_Number_List").html("")        
         var key_board_index=2048-submission_count*4
-        // if (first_extreme==true) {
-        //     for(var x=0; x < stack_table.length ; x++){
-        //         if(stack_table[x]["address"] == 2004){
-        //             extremes_table["min"]=usable_number;
         
-        //         }
-        //         else if(stack_table[x]["address"] == 2008){
-        //             var maxxy = stack_table[x]["content"];
-        //             if(maxxy>extremes_table["max"]) {extremes_table["max"]=maxxy}
         
-        //         }
-        //      }
-        // }
-        //update_stack_table_value(2004,extremes_table["max"],4)
-        //update_stack_table_value(2008,extremes_table["min"],4)
         update_stack_table_value(key_board_index,usable_number,4)
         update_stack_table_value(ready_bit_placement,1,4)
         update_stack_table_view()
