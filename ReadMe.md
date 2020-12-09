@@ -21,7 +21,6 @@ Currently, we refer the memory as the virtual memory. Physical memory and cache 
 - Hunter Zhao
 - Marlon Lopez
 - Benjamin Pulatov
-- Mathew Estrella
 
 ## Task List
 - [x] Code test program and translate it into assembly language
